@@ -1,6 +1,10 @@
 import React from "react";
+import { UserContext } from "../App.jsx";
 
 function PostList({ image, content, user }) {
+  const currentUser = React.useContext(UserContext);
+  const isCurrentUser = currentUser == user;
+
   return (
     <React.Fragment>
       {image && (
@@ -11,7 +15,7 @@ function PostList({ image, content, user }) {
         />
       )}
       <p> {content}</p>
-      <div> by {user}</div>
+      <div style={{ color: isCurrentUser && "green" }}> by {user}</div>
     </React.Fragment>
   );
 }
