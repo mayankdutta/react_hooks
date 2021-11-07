@@ -12,32 +12,22 @@ export const PostContext = React.createContext({
 
 function App() {
   const initialPostState = React.useContext(PostContext);
-  const [user, setUser] = React.useState("");
-  // const [posts, setPosts] = React.useState([]);
-
   const [state, dispatch] = React.useReducer(postReducer, initialPostState);
+  const [user, setUser] = React.useState("");
 
   React.useEffect(() => {
     document.title = user === "" ? "Please Login" : `${user}'s Feed`;
   }, [user]);
 
-  // const handleAddPost = useCallback(
-  //   function (newPost) {
-  //     setPosts([newPost, ...posts]);
-  //   },
-  //   [posts]
-  // );
-
-  if (!user) return <Login setUser={setUser} />;
+  if (!user) {
+    return <Login setUser={setUser} />;
+  }
 
   return (
     <PostContext.Provider value={{ state, dispatch }}>
       <UserContext.Provider value={user}>
         <Header user={user} setUser={setUser} />
-        <CreatePost
-          user={user}
-          // handleAddPost={handleAddPost}
-        />
+        <CreatePost user={user} />
         <PostList posts={state.posts} />
       </UserContext.Provider>
     </PostContext.Provider>
