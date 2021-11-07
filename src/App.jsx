@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import Login from "./components/Login.jsx";
 import Header from "./components/Header.jsx";
 import CreatePost from "./components/CreatePost";
@@ -11,8 +11,10 @@ export const PostContext = React.createContext({
 });
 
 function App() {
-  const initialPostState = React.useContext(PostContext);
-  const [state, dispatch] = React.useReducer(postReducer, initialPostState);
+  const [state, dispatch] = React.useReducer(
+    postReducer, // function
+    React.useContext(PostContext) // initial state, i.e. posts
+  );
   const [user, setUser] = React.useState("");
 
   React.useEffect(() => {
